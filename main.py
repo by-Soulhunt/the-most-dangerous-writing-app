@@ -65,6 +65,10 @@ class DangerousWritingApp:
         self.last_keypress_time = time.time()
 
     def check_idle(self):
+        """
+        Main logic, check time from last keypress
+        :return: nothing
+        """
         now = time.time()
         remaining = int(self.user_time - (now - self.last_keypress_time))
         if remaining <= 0:
@@ -76,10 +80,15 @@ class DangerousWritingApp:
             self.timer.config(text=f"Timer: {self.user_time} sec")
             self.window.after(1000, self.check_idle)
         else:
+            # Continue to check remaining
             self.timer.config(text=f"Timer: {remaining} sec")
             self.window.after(1000, self.check_idle)
 
     def update_example(self):
+        """
+        Update example field text
+        :return: nothing
+        """
         self.random_text = random.choice(self.texts)
         self.example_field.config(state="normal")
         self.example_field.delete("1.0", tk.END)
